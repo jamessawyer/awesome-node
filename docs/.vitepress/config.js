@@ -20,7 +20,7 @@ const nav = [
 const sidebar_doc = {
   '/v18doc/': [ // Node v18.x 中文文档
     {
-      title: 'Node v18.x 中文文档',
+      text: 'Node v18.x 中文文档',
       items: [
         {
           text: 'File System',
@@ -37,7 +37,7 @@ const sidebar_doc = {
 const sidebar_blog = {
   '/blog/': [
     {
-      title: 'blog',
+      text: 'blog',
       items: [
         {
           text: '第一篇blog',
@@ -45,12 +45,22 @@ const sidebar_blog = {
         }
       ]
     },
+    { 
+      text: '🚀 好文翻译',
+      collapsible: true,
+      items: [
+        {
+          text: 'Node Path的用法',
+          link: '/blog/translate/file-system-paths'
+        },
+      ]
+    }
   ],
 }
 const sidebar_books = {
   '/book/patterns': [ // 设计模式
     { 
-      title: 'Node设计模式',
+      text: 'Node设计模式',
       items: [
         {
           text: 'the node platform',
