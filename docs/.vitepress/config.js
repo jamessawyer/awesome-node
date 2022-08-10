@@ -96,7 +96,7 @@ export default {
   ],
   
   themeConfig: {
-    logo: '/react.svg',
+    logo: '/logo.svg',
     editLink: {
       text: '在GitHub编辑此页',
       pattern: 'https://github.com/jamessawyer/awesome-node/edit/main/docs/:path'
