@@ -72,7 +72,7 @@ path.posix.parse(String.raw`C:\Users\jane\file.txt`)
 
 
 
-## 2️⃣ path的基本概念
+## 2️⃣ Path的基本概念
 
 ### 2.1 Path segments, path separators, path delimiters
 
@@ -658,7 +658,7 @@ path.posix.relative('proj/my-lib/', 'doc/zsh.txt')
 
 
 
-## 6️⃣ 解析路径：提取路径的各个部分（文件名扩展等）
+## 6️⃣ ⭐ 解析路径：提取路径的各个部分（文件名扩展等）
 
 
 
@@ -1161,10 +1161,614 @@ assert.equal(
 
 
 
+### 10.2 glob表达式语法
 
+后面小节覆盖基本语法。更多功能可查看文档：
+
+- [minimatch单元测试](https://github.com/isaacs/minimatch/tree/main/test) 有很多globs示例
+- Bash手册有个[文件名扩展](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion) 小节
+
+#### 10.2.1 匹配Windows路径
+
+即使在windows上，glob片段也是通过 `/` 分割的 - 但它同时匹配 `\` 和 `/`(在Windows上也是合法的路径separators)
+
+```js
+minimatch('dir\\sub/file.txt', 'dir/sub/file.txt')
+// true
+```
+
+#### 10.2.2 Minimatch不会标准化路径
+
+```js
+minimatch('./file.txt', './file.txt')
+// true
+
+minimatch('./file.txt', 'file.txt')
+// false
+
+minimatch('file.txt', './file.txt')
+// false
+```
+
+因此我们没有自己创建路径时，必须标准化路径：
+
+```js
+path.normalize('./file.txt')
+// 'file.txt'
+```
+
+
+
+#### 10.2.3 没有通配符的模式：path separators必须是一条线
+
+没有通配符的模式必须精确匹配。特别是path separators必须是一条线：
+
+```js
+// 💡 语法：minimatch(path, glob)
+minimatch('/dir/file.txt', '/dir/file.txt')
+// true
+
+minimatch('dir/file.txt', 'dir/file.txt')
+// true
+
+minimatch('/dir/file.txt', 'dir/file.txt')
+// false
+
+minimatch('/dir/file.txt', 'file.txt')
+// false
+```
+
+即，我们必须决定要么是绝对路径，要么是相对路径。
+
+使用配置 `.matchBase`，我们可以对路径的basenames上匹配不带斜杠的模式:
+
+```js
+minimatch('/dir/file.txt', 'file.txt', {matchBase: true})
+// true
+```
+
+
+
+#### 10.2.4 ⭐ `*` 匹配任意单一片段
+
+通配符 `*` 匹配任意路径片段或片段的任意部分：
+
+```js
+// 匹配任意路径片段
+minimatch('/dir/file.txt', '/*/file.txt')
+// true
+minimatch('/tmp/file.txt', '/*/file.txt')
+// true
+
+// 匹配片段任意部分
+minimatch('/dir/file.txt', '/dir/*t.xt')
+// true
+minimatch('/dir/data.txt', '/dir/*.txt')
+// true
+```
+
+::: warning
+
+`*` 并不会匹配 *不可见文件*，即以 `.` 开头名字。如果我们像匹配，则必须在 `*` 添加 `.`
+
+```js
+minimatch('file.txt', '*')
+// true
+
+minimatch('.gitignore', '*')
+// false
+
+minimatch('.gitignore', '.*')
+// true
+
+minimatch('/tmp/.log/events.txt', '/tmp/*/events.txt')
+// false
+```
+
+或者使用 `.dot` 配置关闭这种行为：
+
+```js
+minimatch('.gitignore', '*', { dot: true })
+// true
+
+minimatch(
+  '/tmp/.log/events.txt', 
+  '/tmp/*/events.txt',
+  { dot: true }
+)
+// true
+```
+
+:::
+
+
+
+#### 10.2.5 ⭐ `**` 匹配0或多个片段
+
+```js
+// 匹配0或多个片段😎
+minimatch('/file.txt', '/**/file.txt')
+// true
+
+minimatch('/dir/file.txt', '/**/file.txt')
+// true
+
+minimatch('/dir/sub/file.txt', '/**/file.txt')
+// true
+```
+
+如果我们想匹配相对路径，模式不能以path separator开头：
+
+```js
+minimatch('file.txt', '/**/file.txt')
+// false
+```
+
+`**` 也不匹配 **不可见** 路径片段（以点开头的）
+
+```js
+minimatch('/usr/local/.tmp/data.json', '/usr/**/data.json')
+// false
+```
+
+可以使用 `.dot` 配置：
+
+```js {4}
+minimatch(
+  '/usr/local/.tmp/data.json', 
+  '/usr/**/data.json',
+  { dot: true }
+)
+// true
+```
+
+
+
+#### 10.2.6 ⭐ 否定globs
+
+如果glob以 `!` 开头，只有感叹号后面的模式没有匹配上时才能匹配：
+
+```js
+minimatch('file.txt', '!**/*.txt')
+// false
+
+minimatch('file.js', '!**/*.txt')
+// true
+```
+
+
+
+#### 10.2.7 可选匹配
+
+使用在大括号用逗号飞哥多个模式，秩序某个模式匹配了即可：
+
+```js
+minimatch('file.txt', 'file.{txt,js}')
+// true
+
+minimatch('file.js', 'file.{txt,js}')
+// true
+```
+
+
+
+#### 10.2.8 整数区间
+
+一组被 `..` 分割的整数定义证书秋季，匹配其中任意元素：
+
+```js {7-8}
+minimatch('file1.txt', 'file{1..3}.txt')
+// true
+minimatch('file2.txt', 'file{1..3}.txt')
+// true
+minimatch('file3.txt', 'file{1..3}.txt')
+// true
+minimatch('file4.txt', 'file{1..3}.txt')
+// false
+```
+
+也支持填充 `0`：
+
+```js {1-2}
+minimatch('file1.txt', 'file{01..12}.txt')
+// false
+minimatch('file01.txt', 'file{01..12}.txt')
+// true
+minimatch('file02.txt', 'file{01..12}.txt')
+// true
+minimatch('file12.txt', 'file{01..12}.txt')
+// true
+```
+
+
+
+## 1️⃣1️⃣ 使用 file:URLs 引用文件
+
+在Node.js中有2种常见方式引用文件：
+
+1. 字符串路径
+2. URL实例，使用 `file:` 协议
+
+🌰：
+
+```js {11}
+assert.equal(
+  fs.readFileSync(
+    '/tmp/data.txt',
+    { encoding: 'utf-8' }
+  ),
+  'Content'
+)
+
+assert.equal(
+  fs.readFileSync(
+    new URL('file:///tmp/data.txt'),
+    { encoding: 'utf-8' }
+  ),
+  'Content'
+)
+```
+
+### 11.1 URL类
+
+这一小节我们仔细看看URL类，更多：
+
+- Node文档 [The WHATWG URL API](https://nodejs.org/api/url.html#the-whatwg-url-api)
+- WHATWG URL标准 [API](https://url.spec.whatwg.org/#api)
+
+这篇文章中，我们通过全局变量的形式使用URL类，因为这就是Web平台的使用防水，但你也可以导入：
+
+```js
+import { URL } from 'node:url'
+```
+
+#### 11.1.1 URIs vs. 相对引用
+
+👩🏻‍🏫 URLs是URIs子集：
+
+- URI以 [scheme](https://datatracker.ietf.org/doc/html/rfc3986#section-3.1) 开头，后面跟着 `:`
+- 所有其它URl引用都是 *相对引用*
+
+
+
+#### 11.1.2 URL构造器
+
+
+
+URL类有2种实例化方式：
+
+- `new URL(uri: string)`: uri必须是一个 URI。它指定新实例的URI。
+- `new URL(uriRef: string, baseUri: string)`:`baseUri `必须是一个 URI。如果 `uriRef` 是一个相对引用，它会针对 `baseUri` 进行解析，结果将成为新实例的 URI。如果 `uriRef` 是一个 URI，它将完全取代 `baseUri` 作为实例所基于的数据。
+
+🌰：
+
+```js {14-18}
+// 如果只有一个参数，则必须是一个合适的URI
+assert.equal(
+  new URL('https://example.com/public/page.html').toString(),
+  'https://example.com/public/page.html'
+)
+
+assert.throws(
+  () => new URL('../book/toc.html'),
+  /^TypeError \[ERR_INVALID_URL\]: Invalid URL$/
+)
+
+// 解析针对 baseURI 的相对引用
+assert.equal(
+  new URL(
+    '../book/toc.html',
+    'https://example.com/public/page.html'
+  ).toString(),
+  'https://example.com/book/toc.html'
+)
+```
+
+#### 11.1.3 对URL实例解析相对引用
+
+我们先回顾一下URL下面的这个构造器：
+
+```typescript
+new URL(uriRef: string, baseUri: string)
+```
+
+参数 `baseUri` 会强转为字符串。因此任何强转为字符串后仍有些的URL的对象都可被使用：
+
+```js
+const obj = {
+  toString() {
+    // 返回一个合法的URL字符串
+    return 'https://example.com'
+  }
+}
+
+assert.equal(
+  new URL('index.html', obj).href,
+  'https://example.com/index.html'
+)
+```
+
+这使我们能够解析针对 URL 实例的相对引用：😎
+
+```js
+const url = new URL('https://example.com/dir/file1.html');
+assert.equal(
+  new URL('../file2.html', url).href,
+  'https://example.com/file2.html'
+)
+```
+
+这种使用方式，构造器和 `path.resolve()` 很相似。
+
+
+
+#### 11.1.4 ⭐ URL实例属性
+
+URL实例有如下属性:
+
+```typescript
+type URL = {
+  protocol: string,
+  username: string,
+  password: string,
+  hostname: string,
+  port: string,
+  host: string,
+  readonly origin: string,
+  
+  pathname: string,
+  
+  search: string,
+  readonly searchParams: URLSearchParams,
+  hash: string,
+
+  href: string,
+  toString(): string,
+  toJSON(): string,
+}
+```
+
+
+
+#### 11.1.5 将URLs转换为字符串
+
+3种常用方式转换URL -> 字符串：
+
+```js {14}
+const url = new URL('https://example.com/about.html')
+
+assert.equal(
+  url.toString(),
+  'https://example.com/about.html'
+)
+
+assert.equal(
+  url.href,
+  'https://example.com/about.html'
+)
+
+assert.equal(
+  url.toJSON(),
+  'https://example.com/about.html'
+)
+```
+
+`.toJSON()` 方法使我们能在JSON数据中使用URLs：
+
+```js
+const jsonStr = JSON.stringify({
+  pageUrl: new URL('https://2ality.com/p/subscribe.html')
+})
+
+assert.equal(
+  jsonStr, '{"pageUrl":"https://2ality.com/p/subscribe.html"}'
+)
+```
+
+#### 11.1.6 获取URL属性
+
+👩‍🏫 **URL实例没有数据属性，它们都是访问器属性。**
+
+下例中，我们使用 `pickProps()` 工具函数将getters返回值拷贝到普通对象中：
+
+```js
+const props = pickProps(
+  new URL('https://jane:pw@example.com:80/news.html?date=today#misc'),
+  'protocol', 'username', 'password', 'hostname', 'port', 'host',
+  'origin', 'pathname', 'search', 'hash', 'href'
+)
+
+assert.deepEqual(
+  props,
+  {
+    protocol: 'https:',
+    username: 'jane',
+    password: 'pw',
+    hostname: 'example.com',
+    port: '80',
+    host: 'example.com:80',
+    origin: 'https://example.com:80',
+    pathname: '/news.html',
+    search: '?date=today',
+    hash: '#misc',
+    href: 'https://jane:pw@example.com:80/news.html?date=today#misc'
+  }
+)
+
+function pickProps(input, ...keys) {
+  const output = {};
+  for (const key of keys) {
+    output[key] = input[key];
+  }
+  return output;
+}
+```
+
+注意，`pathname` 是一个单一的原子单元。即，不能使用类URL访问其部分（base, extension等）。
+
+
+
+#### 11.1.7 设置URL部分
+
+我们可以通过设置属性的方式改变URL的部分，比如 `.hostname`：
+
+```js {2}
+const url = new URL('https://example.com')
+url.hostname = '2ality.com'
+assert.equal(
+  url.href, 'https://2ality.com/'
+)
+```
+
+我们可以使用setter从部分创建url：
+
+```js
+// Object.assign() 调用setters，当转移属性值时
+const urlFromParts = (parts) => Object.assign(
+  new URL('https://example.com'), // minimal dummy URL
+  parts // assigned to the dummy
+)
+
+const url = urlFromParts({
+  protocol: 'https:',
+  hostname: '2ality.com',
+  pathname: '/p/about.html',
+})
+assert.equal(
+  url.href, 'https://2ality.com/p/about.html'
+)
+```
+
+
+
+#### 11.1.8 通过 .searchParams  管理搜索参数
+
+可以使用 `.searchParams` 属性管理URLs的搜索参数。它的值是 [URLSearchParams](https://nodejs.org/api/url.html#class-urlsearchparams) 实例。
+
+我们可以用它读取搜索参数：
+
+```js
+const url = new URL('https://example.com/?topic=js')
+
+assert.equal(
+  url.searchParams.get('topic'), 'js'
+)
+assert.equal(
+  url.searchParams.has('topic'), true
+)
+```
+
+我们也可通过它改变搜索参数：
+
+```js
+url.searchParams.append('page', '5')
+assert.equal(
+  url.href, 'https://example.com/?topic=js&page=5'
+)
+
+url.searchParams.set('topic', 'css')
+assert.equal(
+  url.href, 'https://example.com/?topic=css&page=5'
+)
+```
+
+
+
+### 11.2 ⭐ URLs和文件路径间转换
+
+手动在文件路径和URLs之间转换很常见。比如，将URL实例 `myUrl`通过 `myUrl.pathname` 转换为文件路径。但是这并不是总生效 - 最好使用 [fileURLToPath](https://nodejs.org/api/url.html#urlfileurltopathurl) 这个函数：
+
+```typescript
+url.fileURLToPath(url: URL | string): string
+```
+
+下面代码比较这个函数的结果和 `.pathname`值：
+
+```js
+import * as assert from 'assert'
+import * as url from 'node:url'
+
+// Unix
+const url1 = new URL('file:///tmp/with%20space.txt')
+assert.equal(
+  url1.pathname, '/tmp/with%20space.txt')
+assert.equal(
+  url.fileURLToPath(url1), '/tmp/with space.txt')
+
+const url2 = new URL('file:///home/thor/Mj%C3%B6lnir.txt')
+assert.equal(
+  url2.pathname, '/home/thor/Mj%C3%B6lnir.txt')
+assert.equal(
+  url.fileURLToPath(url2), '/home/thor/Mjölnir.txt')
+
+
+// Windows
+const url3 = new URL('file:///C:/dir/')
+assert.equal(
+  url3.pathname, '/C:/dir/')
+assert.equal(
+  url.fileURLToPath(url3), 'C:\\dir\\')
+```
+
+[pathToFileURL](https://nodejs.org/api/url.html#url_url_pathtofileurl_path) 则是 `url.fileURLToPath()` 的反向过程
+
+```typescript
+url.pathToFileURL(path: string): URL
+```
+
+它将路径转换为文件URL：
+
+```js
+url.pathToFileURL('/home/john/Work Files').href
+// 'file:///home/john/Work%20Files'
+```
+
+
+
+### 11.3 ⭐ URLs使用场景：相对于当前模块访问文件
+
+📚多用于 `EMS`模块中。
+
+URL 的一个重要场景是访问与当前模块同级的文件：
+
+```js
+function readData() {
+  const url = new URL('data.txt', import.meta.url)
+  return fs.readFileSync(url, {encoding: 'UTF-8'})
+}
+```
+
+[import.meta.url](https://exploringjs.com/impatient-js/ch_modules.html#import.meta.url-on-node.js) 包含当前模块的URL，在Node中它使用文件URL。
+
+使用 `fetch()` 可使上面代码更加跨平台。但是，Node18.5，`fetch()` 还不支持 文件URL:
+
+```js
+await fetch('file:///tmp/file.txt')
+
+// TypeError: fetch failed
+//  cause: Error: not implemented... yet...
+```
+
+### 11.4 URLs使用场景：检测当前模块是否以脚本形式运行
+
+可查看：
+
+- [blog: Node.js: checking if an ESM module is 'main'](https://2ality.com/2022/07/nodejs-esm-main.html)
+
+
+
+### 11.5 Paths vs file:URLs
+
+当shell脚本接收对文件的引用或者导出对文件的引用（比如：通过在屏幕上打印它们），它们实际上总是路径。然而，有两种情况下我们需要url(在前面的小节中讨论过):
+
+- 访问相对于当前模块的文件
+- 来检测当前模块是否作为脚本运行
 
 
 
 原文链接：
 
 - [Working with file system paths on Node.js - Dr.Axel Rauschmayer](https://2ality.com/2022/07/nodejs-path.html#path.format()%3A-creating-paths-out-of-parts)
+
+2022年08月10日21:46:33
+
