@@ -50,8 +50,12 @@ const sidebar_blog = {
       collapsible: true,
       items: [
         {
-          text: 'Node Path的用法',
+          text: 'Path & URL的用法',
           link: '/blog/translate/file-system-paths'
+        },
+        {
+          text: 'FS in Node',
+          link: '/blog/translate/fs-in-node'
         },
       ]
     }
