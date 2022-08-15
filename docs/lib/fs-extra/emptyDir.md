@@ -41,12 +41,6 @@ fs.ensureDir('/tmp/some/dir', (err) => {
   console.log('成功')
 })
 
-//  拷贝目录，即使它包含一个子目录或文件
-fs.copy('/tmp/mydir', '/my/mynewdir', err => {
-  if (err) return console.error(err)
-  console.log('拷贝成功')
-})
-
 // 2️⃣ 使用Promises
 fs.ensureDir('/tmp/some/dir')
   .then(() => {

@@ -99,6 +99,10 @@ const sidebar_lib = {
           text: 'emptyDir',
           link: '/lib/fs-extra/emptyDir'
         },
+        {
+          text: 'ensureFile',
+          link: '/lib/fs-extra/ensureFile'
+        },
       ]
     }
   ],
