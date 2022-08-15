@@ -11,7 +11,7 @@ const nav = [
   {
     text: '🔥常用库',
     items: [
-      { text: 'fs-extra', link: '../lib/fsextra' },
+      { text: 'fs-extra', link: '../lib/fs-extra/copy' },
       { text: 'fast-glob', link: '../lib/fastglob' },
     ]
   },
@@ -57,6 +57,10 @@ const sidebar_blog = {
           text: 'FS in Node',
           link: '/blog/translate/fs-in-node'
         },
+        {
+          text: 'Web Streams on Node',
+          link: '/blog/translate/web-streams-on-node'
+        },
       ]
     }
   ],
@@ -82,11 +86,25 @@ const sidebar_books = {
     }
   ],
 }
+const sidebar_lib = {
+  '/lib/fs-extra': [
+    {
+      text: 'fs-extra',
+      items: [
+        {
+          text: 'copy',
+          link: '/lib/fs-extra/copy'
+        },
+      ]
+    }
+  ],
+}
 
 const sidebar = {
   ...sidebar_doc,
   ...sidebar_blog,
   ...sidebar_books,
+  ...sidebar_lib,
 }
 
 export default {
