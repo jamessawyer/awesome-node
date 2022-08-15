@@ -95,6 +95,10 @@ const sidebar_lib = {
           text: 'copy',
           link: '/lib/fs-extra/copy'
         },
+        {
+          text: 'emptyDir',
+          link: '/lib/fs-extra/emptyDir'
+        },
       ]
     }
   ],
