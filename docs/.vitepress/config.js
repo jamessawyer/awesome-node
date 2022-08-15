@@ -123,6 +123,10 @@ const sidebar_lib = {
           text: 'outputFile',
           link: '/lib/fs-extra/outputFile'
         },
+        {
+          text: 'pathExists',
+          link: '/lib/fs-extra/pathExists'
+        },
       ]
     }
   ],
