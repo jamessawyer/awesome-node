@@ -107,6 +107,10 @@ const sidebar_lib = {
           text: 'ensureDir',
           link: '/lib/fs-extra/ensureDir'
         },
+        {
+          text: 'ensureLink',
+          link: '/lib/fs-extra/ensureLink'
+        },
       ]
     }
   ],
