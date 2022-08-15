@@ -119,6 +119,10 @@ const sidebar_lib = {
           text: 'move',
           link: '/lib/fs-extra/move'
         },
+        {
+          text: 'outputFile',
+          link: '/lib/fs-extra/outputFile'
+        },
       ]
     }
   ],
