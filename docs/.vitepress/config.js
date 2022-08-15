@@ -111,6 +111,10 @@ const sidebar_lib = {
           text: 'ensureLink',
           link: '/lib/fs-extra/ensureLink'
         },
+        {
+          text: 'ensureSymlink',
+          link: '/lib/fs-extra/ensureSymlink'
+        },
       ]
     }
   ],
