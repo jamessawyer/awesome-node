@@ -127,6 +127,10 @@ const sidebar_lib = {
           text: 'pathExists',
           link: '/lib/fs-extra/pathExists'
         },
+        {
+          text: 'readJson',
+          link: '/lib/fs-extra/readJson'
+        },
       ]
     }
   ],
