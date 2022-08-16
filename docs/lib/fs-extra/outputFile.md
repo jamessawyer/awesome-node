@@ -18,7 +18,7 @@ title: outputFile async
 
 📔：
 ```js
-outputFule(file, data[, options][, callback])
+outputFile(file, data[, options][, callback])
 ```
 
 参数：
