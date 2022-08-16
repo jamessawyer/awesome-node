@@ -135,6 +135,14 @@ const sidebar_lib = {
           text: 'remove',
           link: '/lib/fs-extra/remove'
         },
+        {
+          text: 'outputJson',
+          link: '/lib/fs-extra/outputJson'
+        },
+        {
+          text: 'writeJson',
+          link: '/lib/fs-extra/writeJson'
+        },
       ]
     }
   ],
