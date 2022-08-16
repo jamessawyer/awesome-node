@@ -11,7 +11,7 @@ const nav = [
   {
     text: '🔥常用库',
     items: [
-      { text: 'fs-extra', link: '../lib/fs-extra/README' },
+      { text: 'fs-extra', link: '../lib/fs-extra/index' },
       { text: 'globby', link: '../lib/globby' },
     ]
   },
@@ -93,7 +93,7 @@ const sidebar_lib = {
       items: [
         {
           text: 'README',
-          link: '/lib/fs-extra/README'
+          link: '/lib/fs-extra/index'
         },
         {
           text: 'copy',
