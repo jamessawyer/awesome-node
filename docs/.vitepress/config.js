@@ -131,6 +131,10 @@ const sidebar_lib = {
           text: 'readJson',
           link: '/lib/fs-extra/readJson'
         },
+        {
+          text: 'remove',
+          link: '/lib/fs-extra/remove'
+        },
       ]
     }
   ],
