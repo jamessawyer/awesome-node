@@ -86,6 +86,7 @@ const sidebar_books = {
       collapsible: true,
       items: [
         { text: '介绍', link: '/book/patterns/module-system/index' },
+        { text: '模块系统的必要性', link: '/book/patterns/module-system/the-need-for-modules' },
       ]
     },
   ],
