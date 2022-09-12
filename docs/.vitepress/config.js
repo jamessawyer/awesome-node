@@ -74,16 +74,20 @@ const sidebar_books = {
           text: 'the node platform',
           link: '/book/patterns/the-node-platform',
         },
-        {
-          text: 'the module system',
-          link: '/book/patterns/the-module-system',
-        },
+        
         {
           text: 'callback and events',
           link: '/book/patterns/callback-and-events',
         },
       ]
-    }
+    },
+    {
+      text: 'Ⅱ.模块系统',
+      collapsible: true,
+      items: [
+        { text: '介绍', link: '/book/patterns/module-system/index' },
+      ]
+    },
   ],
 }
 const sidebar_lib = {
