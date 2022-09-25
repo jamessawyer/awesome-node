@@ -88,6 +88,7 @@ const sidebar_books = {
         { text: '介绍', link: '/book/patterns/module-system/index' },
         { text: '模块系统的必要性', link: '/book/patterns/module-system/the-need-for-modules' },
         { text: 'JS和Node中的模块系统', link: '/book/patterns/module-system/module-system-in-js-and-node' },
+        { text: '模块系统和其模式', link: '/book/patterns/module-system/the-module-system-and-its-patterns' },
       ]
     },
   ],
