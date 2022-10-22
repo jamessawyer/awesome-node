@@ -92,6 +92,7 @@ const sidebar_books = {
         { text: '⚡CommonJS模块', link: '/book/patterns/module-system/commonjs-modules' },
         { text: '🙆‍♀️CommonJS模块常用模式定义', link: '/book/patterns/module-system/module-define-patterns' },
         { text: '🚀ESM', link: '/book/patterns/module-system/esm' },
+        { text: '🚀ESM和CJS差异和互操性', link: '/book/patterns/module-system/esm-cjs-interoperability' },
       ]
     },
   ],
