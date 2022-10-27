@@ -714,6 +714,11 @@ console.log(fs.readFileSync === readFileSync) // true
 
 作为本章的结束，我们现在准备讨论CommonJS和ESM的一些关键区别和一些有趣的互操作性技术。
 
-
+::: tip 译者注
+深入理解ESM：
+- [通过动画深入理解ES Module - @掘金](https://juejin.cn/post/7157970279498137614)
+- [ES modules: A cartoon deep-dive
+ - Lin Clark@Mozila](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/)
+:::
 
 2022年10月21日23:54:48
