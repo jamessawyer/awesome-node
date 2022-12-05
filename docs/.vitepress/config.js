@@ -133,10 +133,10 @@ const sidebar_core = {
 
 const sidebar = {
   ...sidebar_doc,
+  ...sidebar_core,
   ...sidebar_blog,
   ...sidebar_books,
   ...sidebar_lib,
-  ...sidebar_core,
 }
 
 export default {
@@ -151,6 +151,8 @@ export default {
   
   themeConfig: {
     logo: '/logo.svg',
+    outlineTitle: '目录',
+    outline: [2, 3],
     editLink: {
       text: '在GitHub编辑此页',
       pattern: 'https://github.com/jamessawyer/awesome-node/edit/main/docs/:path'
