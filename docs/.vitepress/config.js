@@ -120,6 +120,13 @@ const sidebar_lib = {
 const sidebar_core = {
   '/core/': [
     {
+      text: 'EventEmitter',
+      collapsible: true,
+      items: [
+        { text: '资源', link: '/core/events/index' },
+      ]
+    },
+    {
       text: 'Streams',
       collapsible: true,
       items: [

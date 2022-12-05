@@ -101,7 +101,7 @@ ReadableStream -pipeTo-> TransformStream -pipeTo-> WritableStream
 
 🚀🚀下面是背压如何通过这个链的：
 
-1. 一开始，WritableStream发出消耗，它此时已经不能处理更多的数据了（即饱和了）
+1. 一开始，WritableStream发出信号，它此时已经不能处理更多的数据了（即饱和了）
 2. 管道停止从TransformStream读取数据
 3. 输入积压在TransformStream内部（使用buffer）
 4. TransformStream发出信号，它的buffer也已经满了
@@ -185,9 +185,9 @@ interface StreamPipeOptions {
 - `getReader()`: 返回一个 Reader - 一个对象，我们可以通过它从 ReadableStream 中读取数据。ReadableStreams返回Reader，类似于 [iterables](https://exploringjs.com/impatient-js/ch_sync-iteration.html) 返回iterators。
 - `locked`: 同一时间每个ReadableStream只能有一个Reader激活。当一个Reader正在使用时，ReadableStream被锁定，此时 `getReader()` 不能被调用
 - [Symbol.asyncIterator](https://exploringjs.com/impatient-js/ch_async-iteration.html): 这个方法使ReadableStreams [异步可迭代](https://exploringjs.com/impatient-js/ch_async-iteration.html)。现在只有某几个平台实现这个函数
-- `cancel(reason)`: 取消流，因为消费者对它不再感兴趣了。`reason` 参数是可读流底层源。当这个操作完成时，返回的Promise也会resolve
+- `cancel(reason)`: 取消流，因为消费者对它不再感兴趣了。`reason` 参数会传递到底层可读流源的 `cancel()` 方法中。当这个操作完成时，返回的Promise也会resolve
 - `pipeTo()`: 将可读流数据填充给可写流。当这个操作完成时，返回的Promise也会resolve。`pipeTo()` 确保背压，关闭，错误等等能正确的在管道链中传播。我们可以通过其第二个参数指定配置项：
-  - `signal`: 允许我们给这个方法传递一个 `AbsortSignal`，允许我们通过该AbsortSignal终止管道
+  - `signal`: 允许我们给这个方法传递一个 `AbortSignal`，允许我们通过该AbortSignal终止管道
   - `preventClose`：如果为 `true`，当可读流关闭时，会阻止可写流的关闭。当我们想将多个可读流连接到相同的可写流时特别有用
   - 其余配置可参考 [web streams定义](https://streams.spec.whatwg.org/#rs-prototype)
 - `pipeThrough()`: 将它的ReadableStream连接到 ReadableWritablePair(某种 TransformStream).它返回结果ReadableStream（比如：ReadableWritablePair的可读端）。
@@ -199,7 +199,237 @@ interface StreamPipeOptions {
 
 
 
+### 2.1 通过Readers消费可读流
+
+📚我们可以通过 `Readers` 从 `ReadableStreams` 中读取数据。它们有如下类型：
+
+```typescript
+interface ReadableStreamGenericReader {
+  readonly closed: Promise<undefined>;
+  cancel(reason?: any): Promise<void>;
+}
+
+interface ReadableStreamDefaultReader<TChunk>
+  extends ReadableStreamGenericReader
+{
+  releaseLock(): void;
+  read(): Promise<ReadableStreamReadResult<TChunk>>;
+}
+
+interface ReadableStreamReadResult<TChunk> {
+  done: boolean;
+  value: TChunk | undefined;
+}
+```
+
+属性解释：
+
+- `.closed`：流关闭后，这个Promise完成。如果流出现错误或者流关闭前就释放了Reader的锁（`lock`）,这个Promise便会 `reject`
+- `.cancel()`：在一个激活的Reader中，这个方法用于取消与之关联的可读流
+- `.releaseLock()`：使Reader失活，并且解锁它的流
+- `.read()`：返回一个 `ReadableStreamReadResult` 类型的Promise，该类型对数据块（`chunk`）进行了包装，它有2个属性：(`类似与iterator`)
+  - `.done` - 是否chunks读取完成，完成则返回 `true`，没有完成则返回 `false`
+  - `.value` - 数据块（`chunk`），最后一块数据块之后返回的为 `undefined`
+
+::: tip
+
+如果你熟悉迭代器（`iterators`）的话，`ReadableStreamReadResult` 可能看着有点眼熟，它与迭代器类似，`Readers` 类似于迭代器，而 `ReadableStreamReadResult` 则类似于迭代器 `.next()` 方法返回的对象。
+
+:::
+
+🌰 下面示例使用 `Readers` 展示了该协议：
+
+```js
+const reader = readableStream.getReader() // A
+assert.equal(readableStream.locked, true) // B
+try {
+  while (true) {
+    const { done, value: chunk } = await reader.read() // C
+    if (done) break
+    // 使用 `chunk`
+  }
+} finally {
+  reader.releaseLock()                   // D
+}
+```
+
+1. `A` - 获取一个Reader，每个可读流都最多有一个Reader
+2. `B` - Reader被获取后，`readableStream` 便被锁定了
+3. `C` - 读取数据块。`.read()` 方法返回一个包含 `.done` & `.value` 对象的Promise。最后一块数据块读取完成后，`.done` 变为 `true`。这个方式类似于JS中的 [Asynchronous Iteration](https://exploringjs.com/impatient-js/ch_async-iteration.html)
+4. `D` - 为了能再次调用 `.getReader()` 获取Reader，我们必须调用 `.releaseLock()` 释放锁
+
+
+
+#### 2.1.1 🌰 通过ReadableStream读取文件
+
+下面示例我们从 `data.txt` 读取数据块（字符串形式）：
+
+```js {10}
+import * as fs from 'node:fs'
+import path from 'node:path'
+import { Readable } from 'node:stream';
+import { __dirname } from '../../tool.js'
+
+const nodeReadable = fs.createReadStream(
+  path.join(__dirname, 'data.txt'),
+  { encoding: 'utf8' } // 编码为 utf8 时，表示以字符串形式读取
+)
+// 将 Node Readable 转换为 Web ReadableStream
+const webReadableStream = Readable.toWeb(nodeReadable) // A
+
+const reader = webReadableStream.getReader()
+try {
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    console.log(value)
+  } 
+} finally {
+  reader.releaseLock()
+}
+
+// 打印data.txt文本中的内容
+```
+
+::: info
+
+
+
+`__dirname` 是ESM模块对CJS中的全局变量的封装：
+
+```js
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+export {
+  __filename,
+  __dirname
+}
+```
+
+:::
 
 
 
 
+
+#### 2.1.2 🌰 将ReadableStream内容组装为字符串
+
+下面将一个ReadableStream所有数据块拼接为一个字符串，然后返回它：
+
+```js
+async function readableStreamToString(readableStream) {
+  const reader = readableStream.getReader()
+  try {
+    let result = ''
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) {        // 流读取完成
+        return result
+      }
+      result += value    // 拼接
+    }
+  } finally {
+    reader.releaseLock() // 释放锁
+  }
+}
+```
+
+
+
+### 2.2 通过异步迭代器消费可读流
+
+可读流也可以通过 [Asynchronous Iteration](https://exploringjs.com/impatient-js/ch_async-iteration.html) 消费：
+
+```js {6}
+const iterator = readableStream[Symbol.asyncIterator]()
+let exhaustive = false
+try {
+  while (true) {
+    let chunk;
+    ({done: exhaustive, value: chunk} = await iterator.next());
+    if (exhaustive) break
+    console.log(chunk)
+  }
+} finally {
+  // 如果循环在迭代完全前就终止了（异常或者提前的reture）
+  // 我们必须调用 `iterator.return()` 检测是否是这种情形
+  if (!exhaustive) {
+    iterator.return()
+  }
+}
+```
+
+😎感谢 `for-await-of` 循环帮助我们处理异步迭代：
+
+```js
+for await (const chunk of readableStream) {
+  console.log(chunk)
+}
+```
+
+#### 2.2.1 🌰 使用异步迭代读取流
+
+下面我们使用异步迭代的方式而不是 `Reader` 的方式完成上面读取文本 `data.txt` 内容的例子：
+
+```js {12-14}
+import * as fs from 'node:fs'
+import { Readable } from 'node:stream'
+import path from 'node:path'
+import { __dirname } from '../../tool.js'
+
+const nodeReadable = fs.createReadStream(
+  path.join(__dirname, 'streams/web', 'data.txt'),
+  { encoding: 'utf8' }
+)
+
+const webReadable = Readable.toWeb(nodeReadable)
+for await (const chunk of webReadable) {
+  console.log(chunk)
+}
+
+// 打印data.txt文本中的内容
+```
+
+
+
+#### 2.2.2 🚨陷阱：浏览器不支持对可读流的异步迭代
+
+目前Node和Deno都是支持对可读流的异步迭代，但是web浏览器还不支持😅。[GitHub issue](https://github.com/whatwg/streams/issues/778) 讨论这个bug。
+
+鉴于目前还不完全清楚如何在浏览器上支持异步迭代，包装是比polyfill更安全的选择。以下代码是[基于Chromium bug报告中的建议](https://bugs.chromium.org/p/chromium/issues/detail?id=929585#c10):
+
+```js
+async function* getAsyncIterableFor(readableStream) {
+  const reader = readableStream.getReader()
+  try {
+    while (true) {
+      const {done, value} = await reader.read()
+      if (done) return
+      yield value
+    }
+  } finally {
+    reader.releaseLock()
+  }
+}
+```
+
+
+
+### 2.3 创建管道链
+
+可读流有2种创建管道链（`pipe chains`）的方式:
+
+1. `readableStream.pipeTo(writeableStream)` - 同步的返回一个Promise `p`。它异步的读取可读流中所有的数据块，然后写入到写入流中。当完成时，Promise p `resolve` 。
+2. `readableStream.pipeThrough(transformStream)` - 将可读流连接到 `transform.writable`，然后返回 `transformStream.readable` （每个转换流都有这些属性指向它的可写端（`writable side`）和可读端（`readable side`））。可以理解为 `通过将一个转换流与可读流连接，我们创建了一个新的可读流`📚
+
+
+
+## 3️⃣ 通过包装将数据源转换为ReadableStreams
+
+
+原文地址：
+ - [Using web streams on Node.js - @exploringjs.com](https://exploringjs.com/nodejs-shell-scripting/ch_web-streams.html)
