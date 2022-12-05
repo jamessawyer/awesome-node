@@ -1,7 +1,8 @@
 const nav = [
   // { text: '📄Node文档', activeMatch: '^/v18doc/', link: '/v18doc/File-System' },
   { text: '📄Node文档', activeMatch: `^/v18doc/`, link: '/v18doc/File-System' },
-  { text: 'blog', link: '/blog/first' },
+  { text: '💫核心概念', link: '../core/stream/index' },
+  { text: '🤔blog', link: '/blog/first' },
   { 
     text: '📚书籍', 
     items: [
@@ -70,15 +71,8 @@ const sidebar_books = {
     { 
       text: 'Node设计模式',
       items: [
-        {
-          text: 'the node platform',
-          link: '/book/patterns/the-node-platform',
-        },
-        
-        {
-          text: 'callback and events',
-          link: '/book/patterns/callback-and-events',
-        },
+        { text: 'the node platform', link: '/book/patterns/the-node-platform' },
+        { text: 'callback and events', link: '/book/patterns/callback-and-events' },
       ]
     },
     {
@@ -103,69 +97,38 @@ const sidebar_lib = {
     {
       text: 'fs-extra',
       items: [
-        {
-          text: 'README',
-          link: '/lib/fs-extra/index'
-        },
-        {
-          text: 'copy',
-          link: '/lib/fs-extra/copy'
-        },
-        {
-          text: 'emptyDir',
-          link: '/lib/fs-extra/emptyDir'
-        },
-        {
-          text: 'ensureFile',
-          link: '/lib/fs-extra/ensureFile'
-        },
-        {
-          text: 'ensureDir',
-          link: '/lib/fs-extra/ensureDir'
-        },
-        {
-          text: 'ensureLink',
-          link: '/lib/fs-extra/ensureLink'
-        },
-        {
-          text: 'ensureSymlink',
-          link: '/lib/fs-extra/ensureSymlink'
-        },
-        {
-          text: 'move',
-          link: '/lib/fs-extra/move'
-        },
-        {
-          text: 'outputFile',
-          link: '/lib/fs-extra/outputFile'
-        },
-        {
-          text: 'pathExists',
-          link: '/lib/fs-extra/pathExists'
-        },
-        {
-          text: 'readJson',
-          link: '/lib/fs-extra/readJson'
-        },
-        {
-          text: 'remove',
-          link: '/lib/fs-extra/remove'
-        },
-        {
-          text: 'outputJson',
-          link: '/lib/fs-extra/outputJson'
-        },
-        {
-          text: 'writeJson',
-          link: '/lib/fs-extra/writeJson'
-        },
-        {
-          text: 'fs-write-read-writev',
-          link: '/lib/fs-extra/fs-write-read-writev'
-        },
+        { text: 'README', link: '/lib/fs-extra/index' },
+        { text: 'copy', link: '/lib/fs-extra/copy' },
+        { text: 'emptyDir', link: '/lib/fs-extra/emptyDir' },
+        { text: 'ensureFile', link: '/lib/fs-extra/ensureFile' },
+        { text: 'ensureDir', link: '/lib/fs-extra/ensureDir' },
+        { text: 'ensureLink', link: '/lib/fs-extra/ensureLink' },
+        { text: 'ensureSymlink', link: '/lib/fs-extra/ensureSymlink' },
+        { text: 'move', link: '/lib/fs-extra/move' },
+        { text: 'outputFile', link: '/lib/fs-extra/outputFile' },
+        { text: 'pathExists', link: '/lib/fs-extra/pathExists' },
+        { text: 'readJson', link: '/lib/fs-extra/readJson' },
+        { text: 'remove', link: '/lib/fs-extra/remove' },
+        { text: 'outputJson', link: '/lib/fs-extra/outputJson' },
+        { text: 'writeJson', link: '/lib/fs-extra/writeJson' },
+        { text: 'fs-write-read-writev', link: '/lib/fs-extra/fs-write-read-writev' },
       ]
     }
   ],
+}
+
+const sidebar_core = {
+  '/core/': [
+    {
+      text: 'Streams',
+      collapsible: true,
+      items: [
+        { text: '资源', link: '/core/stream/index' },
+        { text: '⚡Stream图解', link: '/core/stream/stream-visulization' },
+        { text: '⚡Stream实战', link: '/core/stream/stream-in-practice' },
+      ]
+    },
+  ]
 }
 
 const sidebar = {
@@ -173,6 +136,7 @@ const sidebar = {
   ...sidebar_blog,
   ...sidebar_books,
   ...sidebar_lib,
+  ...sidebar_core,
 }
 
 export default {
