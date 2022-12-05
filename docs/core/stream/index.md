@@ -3,6 +3,12 @@ title: Node Streams
 ---
 可以说Streams是Node.js的灵魂。下面介绍一些关于好的学习资源。
 
+## cheatsheet
+关于流的cheatsheet: [Nodejs Streams cheatsheet @devhints.io](https://devhints.io/nodejs-stream)
+![Stream Cheatsheet1](./imgs/stream-cheatsheet-1.png)
+![Stream Cheatsheet2](./imgs/stream-cheatsheet-2.png)
+
+
 ## 文章
 1. [A Visual Guide to NodeJS Streams — Advanced NodeJS Part 4](./stream-visulization)
    - 通过可视化的方式了解Node中 `Readable` & `Writable` & `Duplex` & `Transform` 4种流
