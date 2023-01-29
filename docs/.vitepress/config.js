@@ -1,6 +1,6 @@
 const nav = [
-  // { text: '📄Node文档', activeMatch: '^/v18doc/', link: '/v18doc/File-System' },
   { text: '📄Node文档', activeMatch: `^/v18doc/`, link: '/v18doc/File-System' },
+  { text: '📦包管理', link: '/manager/basic' },
   { text: '💫核心概念', link: '../core/stream/index' },
   { text: '🤔blog', link: '/blog/first' },
   { 
@@ -138,8 +138,23 @@ const sidebar_core = {
   ]
 }
 
+const sidebar_manager = {
+  '/manager/': [
+    {
+      text: '基础知识',
+      items: [
+        {
+          text: 'package.json',
+          link: '/manager/basic',
+        }
+      ]
+    },
+  ],
+}
+
 const sidebar = {
   ...sidebar_doc,
+  ...sidebar_manager,
   ...sidebar_core,
   ...sidebar_blog,
   ...sidebar_books,
