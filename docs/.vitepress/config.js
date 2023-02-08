@@ -1,12 +1,12 @@
 const nav = [
   { text: '📄Node文档', activeMatch: `^/v18doc/`, link: '/v18doc/File-System' },
   { text: '📦包管理', link: '/manager/basic' },
-  { text: '💫核心概念', link: '../core/stream/index' },
+  { text: '💫核心概念', link: '/core/stream/index' },
   { text: '🤔blog', link: '/blog/first' },
   { 
     text: '📚书籍', 
     items: [
-      { text: 'Node Design Patterns', link: '../book/patterns/the-node-platform' },
+      { text: 'Node Design Patterns', link: '/book/patterns/the-node-platform' },
     ]
   },
   {
