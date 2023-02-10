@@ -7,6 +7,7 @@ const nav = [
     text: '📚书籍', 
     items: [
       { text: 'Node Design Patterns', link: '/book/patterns/the-node-platform' },
+      { text: '深入理解Vite', link: '/book/vite/2' },
     ]
   },
   {
@@ -91,6 +92,14 @@ const sidebar_books = {
       ]
     },
   ],
+  '/book/vite': [
+    {
+      text: '🔧深入理解Vite',
+      items: [
+        { text: '模块标准', link: '/book/vite/2' },
+      ]
+    }
+  ]
 }
 const sidebar_lib = {
   '/lib/fs-extra': [
