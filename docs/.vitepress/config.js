@@ -97,6 +97,7 @@ const sidebar_books = {
       text: '🔧深入理解Vite',
       items: [
         { text: '模块标准', link: '/book/vite/2' },
+        { text: '快速上手Vite', link: '/book/vite/3' },
       ]
     }
   ]
