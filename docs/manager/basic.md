@@ -27,6 +27,15 @@ title: Package.json
      - `sideEffects` 帮助打包工具确认是否包含副作用模块，或者明确指出哪些模块是包含副作用的
      - `peerDependencies` 列举出lib所需的相对依赖
    - 定义lib协议，比如 `MIT`
+3. [🎉The complete guide to packaging library - Bjorn Lu@Twitter ](https://twitter.com/bluwyoo/status/1623644164046073856?s=20&t=S_xtzmAnYY3fZHZE2gY62w)比上面文章更加的详细
+   - 着重介绍了 `package.json#exports` 的各种用户，以及含义
+   - 发布包构建工具的选择
+   - 类型文件的处理以及不同模块规范，开发还是生产
+   - 也可以选择特殊的构建工具 - tsup
+   - 以及如何使用JSDoc，不使用TS，简化整个过程
+   - [slides github](https://github.com/bluwy/package-library)
+   - [slides preview](https://package-library.bjornlu.com/)
+   - [🔧 发布包之前对lib进行在线验证工具](https://publint.dev/)
 
 
 
