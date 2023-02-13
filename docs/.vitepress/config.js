@@ -16,8 +16,8 @@ const nav = [
   {
     text: '🔥常用库',
     items: [
-      { text: 'fs-extra', link: '../lib/fs-extra/index' },
-      { text: 'globby', link: '../lib/globby' },
+      { text: 'fs-extra', link: '/lib/fs-extra/index' },
+      // { text: 'globby', link: '/lib/globby' },
     ]
   },
 ]
