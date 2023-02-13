@@ -100,6 +100,7 @@ const sidebar_books = {
         { text: '快速上手Vite', link: '/book/vite/3' },
         { text: '样式方案', link: '/book/vite/4' },
         { text: '预构建', link: '/book/vite/7' },
+        { text: '双引擎架构', link: '/book/vite/8' },
         { text: '代码分割', link: '/book/vite/14' },
       ]
     }
