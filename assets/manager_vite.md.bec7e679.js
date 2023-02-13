@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./app.9f84a185.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"manager/vite.md","lastUpdated":1676272778000}'),r={name:"manager/vite.md"};function n(o,s,c,i,p,d){return a(),t("div")}const f=e(r,[["render",n]]);export{m as __pageData,f as default};
