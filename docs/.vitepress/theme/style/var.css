@@ -8,9 +8,9 @@
   --vp-home-hero-image-filter: blur(150px);
 
   /* brand按钮 */
-  --vp-button-brand-border: #F6CEEC;
+  --vp-button-brand-border: transparent;
   --vp-button-brand-text: #F6CEEC;
-  --vp-button-brand-bg: #D939CD;
+  --vp-button-brand-bg: #B71D1B;
 
   --vp-button-brand-hover-border: #F6CEEC;
   --vp-button-brand-hover-text: #fff;
@@ -19,7 +19,7 @@
   --vp-button-brand-active-border: #F6CEEC;
 
   /* 主题基色 */
-  --vp-c-brand: #D939CD;
+  --vp-c-brand: #B71D1B;
   --vp-c-brand-light: #D939CD;
   --vp-c-brand-dark: #D939CD;
 
