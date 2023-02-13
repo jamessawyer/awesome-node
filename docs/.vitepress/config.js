@@ -1,3 +1,6 @@
+import { defineConfig } from 'vitepress'
+import { withPwa } from '@vite-pwa/vitepress'
+
 const nav = [
   { text: '📄Node文档', activeMatch: `^/v18doc/`, link: '/v18doc/File-System' },
   { text: '📦包管理', link: '/manager/basic' },
@@ -175,14 +178,19 @@ const sidebar = {
   ...sidebar_lib,
 }
 
-export default {
+export default withPwa(defineConfig({
   title: 'Awesome Node',
-  description: 'Node相关的一些文档，书籍和资料',
+  description: 'Node + Vite + Webpack + Babel',
   lastUpdated: true,
   base: '/awesome-node/', // 非常重要这个属性！！！
   
   head:[
-    ['link', { rel: 'icon', href: '/awesome-node/favicon.ico' }]
+    ['link', { rel: 'icon', href: '/awesome-node/favicon.ico' }],
+    ['link', { rel: 'apple-touch-icon', href: '/awesome-node/pwa-192x192.png', sizes: '192x192' }],
+    ['meta', {
+      name: 'keywords',
+      content: 'Node, Vite, Webpack, Babel',
+    }],
   ],
   
   themeConfig: {
@@ -200,5 +208,40 @@ export default {
     // lineNumbers: true, // 是否显示行号
     // options for markdown-it-toc-done-right
     toc: { level: [1, 2, 3] },
+  },
+  pwa: {
+    // https://github.com/vite-pwa/vitepress/blob/main/examples/pwa-simple/.vitepress/config.ts
+    registerType: 'autoUpdate',
+    includeAssets: ['favicon.ico', 'logo.svg'],
+    manifest: {
+      name: 'Awesome Node',
+      short_name: 'NodePWA',
+      theme_color: '#ffffff',
+      icons: [
+        {
+          src: 'pwa-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: 'pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+        {
+          src: 'pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any maskable',
+        },
+      ],
+    },
+    workbox: {
+      globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
+    },
+    devOptions: {
+      enabled: true,
+      navigateFallback: '/',
+    },
   }
-}
+}))
