@@ -3,7 +3,7 @@ import { withPwa } from '@vite-pwa/vitepress'
 
 const nav = [
   { text: '📄Node文档', activeMatch: `^/v18doc/`, link: '/v18doc/File-System' },
-  { text: '📦包管理', link: '/manager/basic' },
+  { text: '📦构建工程化', link: '/manager/basic' },
   { text: '💫核心概念', link: '/core/stream/index' },
   { text: '🤔blog', link: '/blog/first' },
   { 
@@ -162,10 +162,10 @@ const sidebar_manager = {
     {
       text: '基础知识',
       items: [
-        {
-          text: 'package.json',
-          link: '/manager/basic',
-        }
+        { text: 'package.json', link: '/manager/basic' },
+        { text: 'Vite学习', link: '/manager/vite' },
+        { text: 'Webpack学习', link: '/manager/webpack' },
+        { text: 'babel生态', link: '/manager/babel' },
       ]
     },
   ],
