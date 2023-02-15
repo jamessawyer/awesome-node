@@ -105,6 +105,7 @@ const sidebar_books = {
         { text: '预构建', link: '/book/vite/7' },
         { text: '双引擎架构', link: '/book/vite/8' },
         { text: '性能推手: Esbuild', link: '/book/vite/9' },
+        { text: 'Rollup基本用法', link: '/book/vite/10' },
         { text: '代码分割', link: '/book/vite/14' },
       ]
     }
