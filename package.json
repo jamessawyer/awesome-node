@@ -18,14 +18,15 @@
         "@algolia/client-search",
         "@types/react",
         "react",
-        "react-dom"
+        "react-dom",
+        "vite"
       ]
     }
   },
   "devDependencies": {
     "@vite-pwa/vitepress": "^0.0.5",
     "vite-plugin-pwa": "^0.14.4",
-    "vitepress": "1.0.0-alpha.45",
+    "vitepress": "1.0.0-alpha.46",
     "vue": "^3.2.47"
   }
 }
