@@ -28,5 +28,8 @@
     "vite-plugin-pwa": "^0.14.4",
     "vitepress": "1.0.0-alpha.46",
     "vue": "^3.2.47"
+  },
+  "dependencies": {
+    "medium-zoom": "^1.0.8"
   }
 }

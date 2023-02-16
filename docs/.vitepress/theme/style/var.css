@@ -26,5 +26,11 @@
   --vp-c-bg-mute: #74928a;
   --vp-c-mute: #4d4d87;
   --vp-c-text-code: #ffffff;
+
+  --vp-c-bg-overlay: rgba(30,30,32,0.75)
+}
+
+.dark {
+  --vp-c-bg-overlay: rgba(30,30,32,0.75);
 }
 
