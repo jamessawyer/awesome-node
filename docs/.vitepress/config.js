@@ -107,6 +107,7 @@ const sidebar_books = {
         { text: '9.性能推手: Esbuild', link: '/book/vite/9' },
         { text: '10.Rollup基本用法', link: '/book/vite/10' },
         { text: '11.深入理解Rollup插件机制', link: '/book/vite/11' },
+        { text: '12.Vite插件开发', link: '/book/vite/12' },
         { text: '14.代码分割', link: '/book/vite/14' },
       ]
     }
