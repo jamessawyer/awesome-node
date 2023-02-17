@@ -220,7 +220,8 @@ export default withPwa(defineConfig({
     manifest: {
       name: 'Awesome Node',
       short_name: 'NodePWA',
-      theme_color: '#ffffff',
+      // --vp-c-bg: #1e1e20;
+      theme_color: 'var(--vp-c-bg)',
       icons: [
         {
           src: 'pwa-192x192.png',
