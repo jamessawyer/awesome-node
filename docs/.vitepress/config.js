@@ -27,14 +27,8 @@ const sidebar_doc = {
     {
       text: 'Node v18.x 中文文档',
       items: [
-        {
-          text: 'File System',
-          link: '/v18doc/File-System',
-        },
-        {
-          text: 'Path',
-          link: '/v18doc/Path',
-        },
+        { text: 'File System', link: '/v18doc/File-System' },
+        { text: 'Path',  link: '/v18doc/Path' },
       ]
     }
   ],
@@ -54,18 +48,16 @@ const sidebar_blog = {
       text: '🚀 好文翻译',
       collapsible: true,
       items: [
-        {
-          text: 'Path & URL的用法',
-          link: '/blog/translate/file-system-paths'
-        },
-        {
-          text: 'FS in Node',
-          link: '/blog/translate/fs-in-node'
-        },
-        {
-          text: 'Web Streams on Node',
-          link: '/blog/translate/web-streams-on-node'
-        },
+        { text: 'Path & URL的用法', link: '/blog/translate/file-system-paths' },
+        { text: 'FS in Node', link: '/blog/translate/fs-in-node' },
+        { text: 'Web Streams on Node', link: '/blog/translate/web-streams-on-node' },
+      ]
+    },
+    { 
+      text: 'MISC',
+      collapsible: true,
+      items: [
+        { text: 'ESM & CJS模块', link: '/blog/misc/module' }
       ]
     }
   ],
