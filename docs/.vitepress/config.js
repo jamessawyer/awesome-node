@@ -101,6 +101,7 @@ const sidebar_books = {
         { text: '11.深入理解Rollup插件机制', link: '/book/vite/11' },
         { text: '12.Vite插件开发', link: '/book/vite/12' },
         { text: '14.代码分割', link: '/book/vite/14' },
+        { text: '18.Pure ESM时代', link: '/book/vite/18' },
       ]
     }
   ]
