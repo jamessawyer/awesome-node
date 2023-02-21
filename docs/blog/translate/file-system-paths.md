@@ -156,7 +156,7 @@ path.posix.parse(String.raw`C:\Users\jane\file.txt`)
    - `dirPath` 必须是一个文件夹
    - 这个改变不会影响shell，只会影响当前运行的Node进程
 
-👩🏻‍🏫 当一个路径不是 *完整路径（`fully qualified(complete)`）*时，Node会利用CWD补充缺失的部分。这使得我们可以在很多函数中使用部分限定路径🤩，比如：`fs.readFileSync()`
+👩🏻‍🏫 当一个路径不是 *完整路径（`fully qualified(complete)`）* 时，Node会利用CWD补充缺失的部分。这使得我们可以在很多函数中使用部分限定路径🤩，比如：`fs.readFileSync()`
 
 
 
@@ -1340,7 +1340,7 @@ minimatch('file.js', '!**/*.txt')
 
 #### 10.2.7 可选匹配
 
-使用在大括号用逗号飞哥多个模式，秩序某个模式匹配了即可：
+使用在大括号用逗号分割多个模式，只许某个模式匹配了即可：
 
 ```js
 minimatch('file.txt', 'file.{txt,js}')
@@ -1416,7 +1416,7 @@ assert.equal(
 - Node文档 [The WHATWG URL API](https://nodejs.org/api/url.html#the-whatwg-url-api)
 - WHATWG URL标准 [API](https://url.spec.whatwg.org/#api)
 
-这篇文章中，我们通过全局变量的形式使用URL类，因为这就是Web平台的使用防水，但你也可以导入：
+这篇文章中，我们通过全局变量的形式使用URL类，因为这就是Web平台的使用方式，但你也可以导入：
 
 ```js
 import { URL } from 'node:url'
