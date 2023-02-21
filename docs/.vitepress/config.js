@@ -102,6 +102,7 @@ const sidebar_books = {
         { text: '12.Vite插件开发', link: '/book/vite/12' },
         { text: '14.代码分割', link: '/book/vite/14' },
         { text: '18.Pure ESM时代', link: '/book/vite/18' },
+        { text: '19.系统对Vite项目性能优化', link: '/book/vite/19' },
       ]
     }
   ]
