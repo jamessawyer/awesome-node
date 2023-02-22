@@ -101,6 +101,7 @@ const sidebar_books = {
         { text: '11.深入理解Rollup插件机制', link: '/book/vite/11' },
         { text: '12.Vite插件开发', link: '/book/vite/12' },
         { text: '14.代码分割', link: '/book/vite/14' },
+        { text: '15.Polyfill和语法降级', link: '/book/vite/15' },
         { text: '18.Pure ESM时代', link: '/book/vite/18' },
         { text: '19.系统对Vite项目性能优化', link: '/book/vite/19' },
       ]
