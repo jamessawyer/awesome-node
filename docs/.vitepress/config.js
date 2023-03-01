@@ -103,6 +103,7 @@ const sidebar_books = {
         { text: '14.代码分割', link: '/book/vite/14' },
         { text: '15.Polyfill和语法降级', link: '/book/vite/15' },
         { text: '16.Vite搭建SSR工程', link: '/book/vite/16' },
+        { text: '17.联邦模块以及原理', link: '/book/vite/17' },
         { text: '18.Pure ESM时代', link: '/book/vite/18' },
         { text: '19.系统对Vite项目性能优化', link: '/book/vite/19' },
       ]
