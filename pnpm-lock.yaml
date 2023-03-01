@@ -4,7 +4,7 @@ specifiers:
   '@vite-pwa/vitepress': ^0.0.5
   medium-zoom: ^1.0.8
   vite-plugin-pwa: ^0.14.4
-  vitepress: 1.0.0-alpha.48
+  vitepress: 1.0.0-alpha.49
   vue: ^3.2.47
 
 dependencies:
@@ -13,7 +13,7 @@ dependencies:
 devDependencies:
   '@vite-pwa/vitepress': 0.0.5_vite-plugin-pwa@0.14.4
   vite-plugin-pwa: 0.14.4
-  vitepress: 1.0.0-alpha.48
+  vitepress: 1.0.0-alpha.49
   vue: 3.2.47
 
 packages:
@@ -3236,8 +3236,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress/1.0.0-alpha.48:
-    resolution: {integrity: sha512-vu9J6Eg1l+o33lfDAMD9+cxomMNQGNQEW/GPu32tkffagMBxoBqhzxfqjaOqtTQ2VdS+dauOdROtrWQrElyivw==}
+  /vitepress/1.0.0-alpha.49:
+    resolution: {integrity: sha512-3nUZJow4qL8NHRWYatqqVj45AJDxWst/TuOj+IbQRhxesEswa+Fpwayj9/FxzRzBl665fuiG5y+QeVhOeUm0OA==}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.3.3
