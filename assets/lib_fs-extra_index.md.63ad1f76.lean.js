@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as d,b as r}from"./app.3718deac.js";const y=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"lib/fs-extra/index.md","lastUpdated":1677639684000}'),o={name:"lib/fs-extra/index.md"},c=r("",10),i=[c];function n(a,l,s,p,u,h){return d(),e("div",null,i)}const S=t(o,[["render",n]]);export{y as __pageData,S as default};
