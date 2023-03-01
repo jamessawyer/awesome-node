@@ -57,7 +57,8 @@ const sidebar_blog = {
       text: 'MISC',
       collapsible: true,
       items: [
-        { text: 'ESM & CJS模块', link: '/blog/misc/module' }
+        { text: 'ESM & CJS模块', link: '/blog/misc/module' },
+        { text: 'Express + typescripe设置', link: '/blog/misc/ts-and-express' },
       ]
     }
   ],
