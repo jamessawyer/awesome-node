@@ -3,7 +3,7 @@ import { withPwa } from '@vite-pwa/vitepress'
 
 const nav = [
   { text: '📄Node文档', activeMatch: `^/v18doc/`, link: '/v18doc/File-System' },
-  { text: '📦构建工程化', link: '/manager/basic' },
+  { text: '📦工程化', link: '/manager/basic' },
   { text: '💫核心概念', link: '/core/stream/index' },
   { text: '🤔blog', link: '/blog/first' },
   { 
@@ -92,6 +92,7 @@ const sidebar_books = {
     {
       text: '🔧深入理解Vite',
       items: [
+        { text: '1.Vite开篇', link: '/book/vite/1' },
         { text: '2.模块标准', link: '/book/vite/2' },
         { text: '3.快速上手Vite', link: '/book/vite/3' },
         { text: '4.样式方案', link: '/book/vite/4' },
