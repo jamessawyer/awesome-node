@@ -169,6 +169,12 @@ const sidebar_manager = {
         { text: 'babel生态', link: '/manager/babel' },
       ]
     },
+    {
+      text: 'Recipe',
+      items: [
+        { text: 'Node资源', link: '/manager/recipe' },
+      ],
+    },
   ],
 }
 
