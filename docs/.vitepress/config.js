@@ -14,6 +14,13 @@ const nav = [
     ]
   },
   {
+    text: '🧑‍🚀框架',
+    items: [
+      { text: 'NestJS', link: '/framework/nestjs/index' },
+      { text: 'Express', link: '/framework/express/index' },
+    ]
+  },
+  {
     text: '🔥常用库',
     items: [
       { text: 'fs-extra', link: '/lib/fs-extra/index' },
@@ -178,6 +185,25 @@ const sidebar_manager = {
   ],
 }
 
+const sidebar_frameworks = {
+  '/framework/nestjs': [
+    {
+      text: '学习NestJS',
+      items: [
+        { text: '资源', link: '/framework/nestjs/index' },
+      ]
+    }
+  ],
+  '/framework/express': [
+    {
+      text: 'Learn ExpressJS',
+      items: [
+        { text: '资源', link: '/framework/express/index' },
+      ]
+    }
+  ]
+}
+
 const sidebar = {
   ...sidebar_doc,
   ...sidebar_manager,
@@ -185,6 +211,7 @@ const sidebar = {
   ...sidebar_blog,
   ...sidebar_books,
   ...sidebar_lib,
+  ...sidebar_frameworks,
 }
 
 export default withPwa(defineConfig({
