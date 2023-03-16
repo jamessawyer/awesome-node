@@ -11,6 +11,7 @@ const nav = [
     items: [
       { text: 'Node Design Patterns', link: '/book/patterns/the-node-platform' },
       { text: '深入理解Vite', link: '/book/vite/2' },
+      { text: 'Babel插件秘籍', link: '/book/babel/2' },
     ]
   },
   {
@@ -115,6 +116,14 @@ const sidebar_books = {
         { text: '17.联邦模块以及原理', link: '/book/vite/17' },
         { text: '18.Pure ESM时代', link: '/book/vite/18' },
         { text: '19.系统对Vite项目性能优化', link: '/book/vite/19' },
+      ]
+    }
+  ],
+  '/book/babel': [
+    {
+      text: 'Babel插件秘籍',
+      items: [
+        { text: '2.Babel的编译流程', link: '/book/babel/2' },
       ]
     }
   ]
