@@ -23,14 +23,20 @@
   --vp-c-brand-light: #D939CD;
   --vp-c-brand-dark: #D939CD;
 
-  --vp-c-bg-mute: #74928a;
-  --vp-c-mute: #4d4d87;
-  --vp-c-text-code: #ffffff;
+  /* --vp-c-bg-mute: #74928a; */
+  /* --vp-c-mute: #4d4d87; */
+  --vp-c-text-code: #28ffdc;
+  --vp-c-mute: #232932;
+  /* --vp-c-text-code: #ffffff; */
 
-  --vp-c-bg-overlay: rgba(30,30,32,0.75)
+  --vp-c-bg-overlay: rgba(30,30,32,0.75);
+
 }
 
 .dark {
   --vp-c-bg-overlay: rgba(30,30,32,0.75);
 }
 
+.vp-doc strong {
+  color: #5b98de;
+}
