@@ -123,6 +123,7 @@ const sidebar_books = {
     {
       text: 'Babel插件秘籍',
       items: [
+        { text: '1.Babel的介绍', link: '/book/babel/1' },
         { text: '2.Babel的编译流程', link: '/book/babel/2' },
       ]
     }
