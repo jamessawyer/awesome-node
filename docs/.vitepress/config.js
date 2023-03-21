@@ -126,6 +126,7 @@ const sidebar_books = {
         { text: '1.Babel的介绍', link: '/book/babel/1' },
         { text: '2.Babel的编译流程', link: '/book/babel/2' },
         { text: '3.Babel的AST', link: '/book/babel/3' },
+        { text: '4.Babel的API', link: '/book/babel/4' },
       ]
     }
   ]
