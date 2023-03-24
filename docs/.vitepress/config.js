@@ -44,12 +44,9 @@ const sidebar_doc = {
 const sidebar_blog = {
   '/blog/': [
     {
-      text: 'blog',
+      text: '资源',
       items: [
-        {
-          text: '第一篇blog',
-          link: '/blog/first',
-        }
+        { text: 'Advanced', link: '/blog/resource/advanced' },
       ]
     },
     { 
