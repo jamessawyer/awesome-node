@@ -125,6 +125,7 @@ const sidebar_books = {
         { text: '3.Babel的AST', link: '/book/babel/3' },
         { text: '4.Babel的API', link: '/book/babel/4' },
         { text: '5.实战：插入函数调用参数', link: '/book/babel/5' },
+        { text: '6.JS Parser的历史', link: '/book/babel/6' },
       ]
     }
   ]
