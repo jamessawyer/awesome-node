@@ -11,6 +11,7 @@ const nav = [
     items: [
       { text: 'Node Design Patterns', link: '/book/patterns/the-node-platform' },
       { text: '深入理解Vite', link: '/book/vite/2' },
+      { text: 'Webpack5核心原理', link: '/book/webpack/1' },
       { text: 'Babel插件秘籍', link: '/book/babel/2' },
     ]
   },
@@ -63,7 +64,7 @@ const sidebar_blog = {
       collapsible: true,
       items: [
         { text: 'ESM & CJS模块', link: '/blog/misc/module' },
-        { text: 'Express + typescripe设置', link: '/blog/misc/ts-and-express' },
+        { text: 'Express + typescript设置', link: '/blog/misc/ts-and-express' },
       ]
     }
   ],
@@ -113,6 +114,14 @@ const sidebar_books = {
         { text: '17.联邦模块以及原理', link: '/book/vite/17' },
         { text: '18.Pure ESM时代', link: '/book/vite/18' },
         { text: '19.系统对Vite项目性能优化', link: '/book/vite/19' },
+      ]
+    }
+  ],
+  '/book/webpack': [
+    {
+      text: 'Webpack5核心原理与实践',
+      items: [
+        { text: '1.重新认识Webpack', link: '/book/webpack/1' },
       ]
     }
   ],
