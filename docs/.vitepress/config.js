@@ -122,6 +122,7 @@ const sidebar_books = {
       text: 'Webpack5核心原理与实践',
       items: [
         { text: '1.重新认识Webpack', link: '/book/webpack/1' },
+        { text: '2.如何理解Webpack配置底层结构逻辑？', link: '/book/webpack/2' },
       ]
     }
   ],
