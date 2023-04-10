@@ -124,6 +124,7 @@ const sidebar_books = {
         { text: '1.重新认识Webpack', link: '/book/webpack/1' },
         { text: '2.如何理解Webpack配置底层结构逻辑？', link: '/book/webpack/2' },
         { text: '3.配置Babel+TS+ESLint？', link: '/book/webpack/3' },
+        { text: '10.深入理解图像加载原理和最佳实践', link: '/book/webpack/10' },
       ]
     }
   ],
