@@ -85,7 +85,7 @@ stream closed!
 
 ## 2️⃣ 一个简单的管道（A trivial pipe）
 
-正如管道将水源和目的地连接在一起一样，流中的 **管道** 用于将可读流和可写流进行连接。我们先从 [流可视化](./stream-visulization) 这篇文章回想一下 `管道` 是什么：
+正如管道将水源和目的地连接在一起一样，流中的 **管道** 用于将可读流和可写流进行连接。我们先从 [流可视化](./stream-visualization) 这篇文章回想一下 `管道` 是什么：
 
 ![Piping Stream](./imgs/piping-stream.jpg)
 
@@ -122,7 +122,7 @@ app.listen(3000)
 
 下面我们试着理解 `req & res` 的含义。
 
-当客服端和服务端进行通信时，它们其实是通过操作系统在各端创建的 **`sockets`** 来进行的。在NodeJS应用中，我们可以使用 [TCP Socket 流](https://nodejs.org/api/net.html#net_class_net_socket)  进行通信。正如 [Stream图解](./stream-visulization) 这篇文章中提到的，**NodeJS中的TCP socket 是一个双工流**，因此既可以从Socket中读取数据，也可以向Socket中写入数据。
+当客服端和服务端进行通信时，它们其实是通过操作系统在各端创建的 **`sockets`** 来进行的。在NodeJS应用中，我们可以使用 [TCP Socket 流](https://nodejs.org/api/net.html#net_class_net_socket)  进行通信。正如 [Stream图解](./stream-visualization) 这篇文章中提到的，**NodeJS中的TCP socket 是一个双工流**，因此既可以从Socket中读取数据，也可以向Socket中写入数据。
 
 然而，NodeJS的 `http` 模块基于TCP sockets的基础上提供了更多的功能，暴露了2个分开的用于从socket中读取和写入socket的流：
 

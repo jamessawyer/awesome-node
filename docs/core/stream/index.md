@@ -10,7 +10,7 @@ title: Node Streams
 
 
 ## 文章
-1. [A Visual Guide to NodeJS Streams — Advanced NodeJS Part 4](./stream-visulization)
+1. [A Visual Guide to NodeJS Streams — Advanced NodeJS Part 4](./stream-visualization)
    - 通过可视化的方式了解Node中 `Readable` & `Writable` & `Duplex` & `Transform` 4种流
    - 如何使用 `Readable` 流的 `pipe()` 方法将其它流管道连接起来
    - `Readable` & `Writable` 流内部 `highWaterMark` 的含义以及作用，什么是 `背压`
