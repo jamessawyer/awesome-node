@@ -127,6 +127,7 @@ const sidebar_books = {
         { text: '10.深入理解图像加载原理和最佳实践', link: '/book/webpack/10' },
         { text: '11.深入理解webpack核心配置📚', link: '/book/webpack/11' },
         { text: '13.如何使用webpack缓存提升性能⚡', link: '/book/webpack/13' },
+        { text: '15.应用性能极致优化技巧⚡', link: '/book/webpack/15' },
       ]
     }
   ],
@@ -183,7 +184,7 @@ const sidebar_core = {
       collapsible: true,
       items: [
         { text: '资源', link: '/core/stream/index' },
-        { text: '⚡Stream图解', link: '/core/stream/stream-visulization' },
+        { text: '⚡Stream图解', link: '/core/stream/stream-visualization' },
         { text: '⚡Stream实战', link: '/core/stream/stream-in-practice' },
       ]
     },
