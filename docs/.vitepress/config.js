@@ -128,6 +128,7 @@ const sidebar_books = {
         { text: '11.深入理解webpack核心配置📚', link: '/book/webpack/11' },
         { text: '13.如何使用webpack缓存提升性能⚡', link: '/book/webpack/13' },
         { text: '15.应用性能极致优化技巧⚡', link: '/book/webpack/15' },
+        { text: '16.使用SplitChunk提升性能⚡', link: '/book/webpack/16' },
       ]
     }
   ],
