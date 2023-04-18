@@ -127,6 +127,7 @@ const sidebar_books = {
         { text: '10.深入理解图像加载原理和最佳实践', link: '/book/webpack/10' },
         { text: '11.深入理解webpack核心配置📚', link: '/book/webpack/11' },
         { text: '13.如何使用webpack缓存提升性能⚡', link: '/book/webpack/13' },
+        { text: '14.webpack并行构建方式⚡', link: '/book/webpack/14' },
         { text: '15.开发性能极致优化技巧⚡', link: '/book/webpack/15' },
         { text: '16.使用SplitChunk提升性能⚡', link: '/book/webpack/16' },
         { text: '18.应用性能极致优化技巧⚡', link: '/book/webpack/18' },
