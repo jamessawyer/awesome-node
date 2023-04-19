@@ -130,6 +130,7 @@ const sidebar_books = {
         { text: '14.webpack并行构建方式⚡', link: '/book/webpack/14' },
         { text: '15.开发性能极致优化技巧⚡', link: '/book/webpack/15' },
         { text: '16.使用SplitChunk提升性能⚡', link: '/book/webpack/16' },
+        { text: '17.不止Terser: 代码压缩的门门道道⚡', link: '/book/webpack/17' },
         { text: '18.应用性能极致优化技巧⚡', link: '/book/webpack/18' },
       ]
     }
