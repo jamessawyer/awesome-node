@@ -208,6 +208,12 @@ const sidebar_manager = {
       ]
     },
     {
+      text: 'webpack翻译',
+      items: [
+        { text: '深入Webpack打包过程', link: '/manager/webpack/dive-deep-bundling-process' },
+      ]
+    },
+    {
       text: 'Recipe',
       items: [
         { text: 'Node资源', link: '/manager/recipe' },
