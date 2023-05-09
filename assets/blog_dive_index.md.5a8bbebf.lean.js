@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./chunks/framework.19aa805b.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"blog/dive/index.md","filePath":"blog/dive/index.md","lastUpdated":1683625893000}'),o={name:"blog/dive/index.md"};function d(n,r,i,s,c,p){return a(),t("div")}const m=e(o,[["render",d]]);export{_ as __pageData,m as default};
